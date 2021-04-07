@@ -8,6 +8,20 @@ class FilmItem extends React.Component {
         return moment(date).format('D/MM/YYYY')
     }
 
+    _displayFavoriteImage() {
+        if(this.props.favorite) {
+            sourceImage = require('../data/ic_favorite.png')
+        
+
+            return (
+                <Image
+                    source={sourceImage}
+                    style={styles.favorite_image}
+                />
+            )
+        }
+    }
+
     render(){
         const film = this.props.film
         const displayDetailForFilm = this.props.displayDetailForFilm
@@ -19,7 +33,7 @@ class FilmItem extends React.Component {
                 <Image style={styles.image} source={{ uri: url_image }}/>
                 <View style={styles.content}>
                     <View style={styles.header}>
-                        <Text style={styles.titre}>{film.title}</Text>
+                        <Text style={styles.titre}>{this._displayFavoriteImage()}{film.title}</Text>
                         <Text style={styles.vote}>{film.vote_average}</Text>
                     </View>
                     <View style={styles.description}>
@@ -65,6 +79,11 @@ const styles = StyleSheet.create({
         margin: 5,
         width: 120,
         height: 180
+    },
+
+    favorite_image: {
+        width: 30,
+        height: 30,
     },
 
     titre: {
